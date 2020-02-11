@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sjz.sgy.lb.dao.tbStatic.TbStaticDao">
+
+	<insert id="addTbStatic" 
+	parameterType="sjz.sgy.lb.entity.tbStatic.TbStaticCustom">
+	
+	INSERT INTO TB_static
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+	  <if test="code != null">
+        CODE,
+      </if>
+       <if test="staticKey != null">
+        static_key,
+      </if>
+       <if test="staticValue != null">
+        static_value,
+      </if>
+       <if test="description != null">
+        description,
+      </if>
+       <if test="status != null">
+        STATUS,
+      </if>
+       <if test="sort != null">
+        sort,
+      </if>
+	</trim> 
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+         #{code},
+      </if>
+      <if test="staticKey != null">
+         #{staticKey},
+      </if>
+      <if test="staticValue != null">
+         #{staticValue},
+      </if>
+      <if test="description != null">
+         #{description},
+      </if>
+      <if test="status != null">
+         #{status},
+      </if>
+      <if test="sort != null">
+         #{sort},
+      </if>
+       
+	</trim>
+	</insert>
+	
+	<select id="queryTbStatic" parameterType="sjz.sgy.lb.entity.tbStatic.TbStaticQueryVo" resultType="sjz.sgy.lb.entity.tbStatic.TbStaticCustom">	
+		SELECT 
+		static_id staticId,
+		CODE,
+		static_key staticKey,
+		static_value staticValue,
+		description,
+		STATUS,
+		sort
+		FROM TB_static
+		<where>
+		
+			<if test="staticId !=null ">
+				 static_id=#{staticId}
+			</if>
+				
+			<if test="code !=null and code !='' ">
+				 code=#{code}
+			</if>	
+			
+			
+		</where>		
+	</select>
+	
+	
+	<update id="editTbStatic" parameterType="sjz.sgy.lb.entity.tbStatic.TbStaticCustom">
+		UPDATE
+		TB_static
+		<trim prefix="SET" suffixOverrides=",">
+				<if test=" code != null and code != '' ">code=#{code},</if>
+				<if test=" staticKey != null and staticKey != '' ">static_key=#{staticKey},</if>
+				<if test=" staticValue != null and staticValue != '' ">static_value=#{staticValue},</if>
+				<if test=" description != null and description != '' ">description=#{description},</if>		
+				<if test=" status != null and status != '' ">STATUS=#{status},</if>	
+				<if test=" sort != null and sort != '' ">sort=#{sort},</if>			
+		</trim>
+		WHERE
+		static_id=#{staticId}
+	</update>
+
+</mapper>
