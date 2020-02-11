@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sjz.sgy.lb.dao.sys.LoginDao">
+
+<select id="getSysUser" parameterType="map" resultType="map">
+  select 
+    sys_user_id,
+	username AS 'userName',
+	password,
+	email,
+	mobile,
+	identity,
+	UNIX_TIMESTAMP(create_time) AS 'createTime',
+	UNIX_TIMESTAMP(modify_time) AS 'modify_time',
+	del_state
+FROM sys_user WHERE del_state=1 
+<if test="userName!=null and userName!=''">
+and username=#{userName}
+</if>
+<if test="userId!=null and userId!=''">
+and sys_user_id=#{userId}
+</if>
+</select>
+	
+<select id="getMember" parameterType="map" resultType="map">
+SELECT member_id AS 'memberId',
+       open_id AS 'openId',
+       wechat_nickname AS 'wechatNickname',
+       wechat_icon AS 'wechatIcon',
+       account_number AS 'accountNumber',
+       password,phone
+FROM member where del_state=1
+<if test="accountNumber!=null and accountNumber!=''">
+ AND account_number=#{accountNumber}
+</if>
+<if test="memberId!=null and memberId!=''">
+ AND member_id=#{memberId}
+</if>
+
+</select>
+
+
+</mapper>
